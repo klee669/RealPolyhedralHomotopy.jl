@@ -28,7 +28,11 @@ Input:
 using Pkg
 Pkg.activate(".")
 using RealPolyhedralHomotopy
+```
 
+### Constructing a system.
+Input:
+```julia
 @var x y;
 F = System([-1 - 24000*y + x^3, -9 + 50*x*y - 1*y^2]);
 ```
