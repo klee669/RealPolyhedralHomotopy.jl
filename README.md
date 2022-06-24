@@ -21,7 +21,7 @@ To run RealPolyhedralHomotopy.jl:
 Polynomials can be constructed by declaring variables with `@var` and including them into a Julia expression.
 The Package exports the functions `generate_binomials`, `certify_patchwork` and `rph_track`.
 
-# Example
+## Example
 ### Running the package.
 Input:
 ```julia
