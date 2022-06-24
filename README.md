@@ -23,7 +23,7 @@ The Package exports the functions `certify_patchwork`, `generate_binomials` and 
 
 ## Example
 ### Running the package.
-Input:
+Run the following commands in the folder `RealPolyhedralHomotopy.jl`:
 ```julia
 using Pkg
 Pkg.activate(".")
