@@ -1,0 +1,18 @@
+include("generate_binomials")
+include("rph_track")
+include("certify_patchwork")
+
+# An example from our paper.
+@var x y;
+F = System([-1 - 24000*y + x^3, -9 + 50*x*y - 1*y^2]);
+
+#
+B = generate_binomials(F)
+
+# Tracks the the real solutions.
+include("rph_track")
+realSols = rph_track(B,F)
+
+# Returns 1 if certified, 0 otherwise.
+include("certify_patchwork")
+result = certify_patchwork(F)
