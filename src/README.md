@@ -1,2 +1,0 @@
-# Real-Polyhedral-Homotopy
- 

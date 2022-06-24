@@ -1,27 +1,28 @@
 # RealPolyhedralHomotopy.jl
-## A package for finding real roots of systems of polynomial equations using polyhedral homotopy.
+A package for finding real roots of systems of polynomial equations using polyhedral homotopy.
 
 ## Usage
-To run a notebook with RealPolyhedralHomotopy:
+To run RealPolyhedralHomotopy.jl:
 - Clone this repository.
-    - Create a new julia notebook inside the `RealPolyhedralHomotopy` folder and put
+    - Create a new julia notebook inside the `RealPolyhedralHomotopy` folder and put the following inside the first cell.
     ```
     using Pkg
     Pkg.activate(".")
     using RealPolyhedralHomotopy
     ```
-        inside the first cell.
-    - or run Julia in the `RealPolyhedralHomotopy` folder and run the commands
+    
+    - or run Julia in the `RealPolyhedralHomotopy` folder and run the following commands:
     ```
     using Pkg
     Pkg.activate(".")
     using RealPolyhedralHomotopy
     ```
 
-Polynomials can be constructed by declaring variables with `@polyvar` and including them into a Julia expression.
+Polynomials can be constructed by declaring variables with `@var` and including them into a Julia expression.
 The Package exports the functions `generate_binomials`, `certify_patchwork` and `rph_track`.
 
-### Example
+# Example
+### Running the package.
 Input:
 ```julia
 using Pkg
@@ -31,7 +32,7 @@ using RealPolyhedralHomotopy
 @var x y;
 F = System([-1 - 24000*y + x^3, -9 + 50*x*y - 1*y^2]);
 ```
-# Returns 1 if certified, 0 otherwise.
+### Certifying patchworkedness.
 Input:
 ```julia
 result = certify_patchwork(F)
@@ -43,7 +44,7 @@ Output:
 ```
 
 
-# Generating starting binomial systems.
+### Generating starting binomial systems.
 Input:
 ```julia
 B = generate_binomials(F)
@@ -56,7 +57,7 @@ Output:
 ```
 
 
-# Tracks the the real solutions.
+### Tracks the the real solutions.
 Input:
 ```julia
 realSols = rph_track(B,F)
