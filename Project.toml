@@ -1,6 +1,6 @@
 name = "RealPolyhedralHomotopy"
 uuid = "0ea325ba-5c5f-496b-acec-8be67510f465"
-authors = ["Kisun Lee <kil004@ucsd.edu>"]
+authors = ["Kisun Lee <kil004@ucsd.edu>","Julia Lindberg <julia.lindberg@mis.mpg.de>","Jose Israel Rodriguez <jose@math.wisc.edu>"]
 version = "0.1.0"
 
 [deps]
