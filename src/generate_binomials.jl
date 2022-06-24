@@ -1,5 +1,4 @@
-#Load packages
-using MixedSubdivisions, HomotopyContinuation, DynamicPolynomials, LinearAlgebra
+export generate_binomials
 
 
 function generate_binomials(poly_system)

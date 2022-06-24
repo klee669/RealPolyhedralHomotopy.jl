@@ -10,7 +10,7 @@ module RealPolyhedralHomotopy
 
   # exported
   using Reexport
-  @reexport using HomotopyContinuation
+  @reexport using MixedSubdivisions, HomotopyContinuation, DynamicPolynomials, LinearAlgebra, AbstractAlgebra, PolynomialRoots
 
   include("certify_patchwork.jl")
   include("generate_binomials.jl")

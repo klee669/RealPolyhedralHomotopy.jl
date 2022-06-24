@@ -1,4 +1,4 @@
-using MixedSubdivisions, HomotopyContinuation, DynamicPolynomials, LinearAlgebra, AbstractAlgebra, PolynomialRoots
+export rph_track
 
 function rph_track(binomialSystem, targetSystem;Certification::Bool = false)
   F = targetSystem;

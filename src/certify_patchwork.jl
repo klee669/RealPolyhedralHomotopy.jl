@@ -1,4 +1,4 @@
-using MixedSubdivisions, HomotopyContinuation, DynamicPolynomials, LinearAlgebra, AbstractAlgebra, PolynomialRoots
+export certify_patchwork
 
 function certify_patchwork(polySystem;Number_Real_Solutions::Bool = false)
   F = polySystem
