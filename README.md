@@ -2,13 +2,13 @@
 A package for finding real roots of systems of polynomial equations using polyhedral homotopy.
 
 ## Usage
-To run RealPolyhedralHomotopy.jl:
+To run RealPolyhedralHomotopy.jl, it is suggested to use Julia 1.6.1 or higher.
 - Clone this repository.
     - Create a new julia notebook inside the `RealPolyhedralHomotopy.jl` folder and put the following inside the first cell.
     ```
     using Pkg
     Pkg.activate(".")
-    using RealPolyhedralHomotopy
+    using RealPolyhedralHomotopy. 
     ```
     
     - or run Julia in the `RealPolyhedralHomotopy.jl` folder and run the following commands:
