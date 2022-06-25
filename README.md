@@ -61,7 +61,7 @@ Output:
 ```
 
 
-### Tracks the the real solutions.
+### Tracking the the real solutions.
 Input:
 ```julia
 realSols = rph_track(B,F)
