@@ -8,7 +8,7 @@ To run RealPolyhedralHomotopy.jl, it is suggested to use Julia 1.6.1 or higher.
     ```
     using Pkg
     Pkg.activate(".")
-    using RealPolyhedralHomotopy. 
+    using RealPolyhedralHomotopy
     ```
     
     - or run Julia in the `RealPolyhedralHomotopy.jl` folder and run the following commands:
