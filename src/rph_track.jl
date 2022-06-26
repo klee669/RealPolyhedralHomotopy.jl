@@ -132,21 +132,21 @@ function rph_track(binomialSystem, targetSystem;Certification::Bool = false)
     append!(real_sols, real_solutions(R2))
   end
 
-if Certification == true         
-        for i in 1:ncells
-        cr = certify(binomial_systems[i],convert(Array{Vector{Float64}},r_binomial_sols[i]));
-            if nreal_certified(cr) < length(r_binomial_sols[i])
-                return 0
-            end
-        end
-        for i in 1:length(real_sols)
-        cr = certify(F,real_sols[i]);
-            if nreal_certified(cr) < 1
-                return 0
-            end
-        end
-        return (convert(Array{Vector{Float64}},real_sols),1)
-else
+  if Certification == true         
+    for i in 1:ncells
+      cr = certify(binomial_systems[i],convert(Array{Vector{Float64}},r_binomial_sols[i]));
+      if nreal_certified(cr) < length(r_binomial_sols[i])
+        return 0
+      end
+    end
+    for i in 1:length(real_sols)
+      cr = certify(F,real_sols[i]);
+      if nreal_certified(cr) < 1
+        return 0
+      end
+    end
+    return (convert(Array{Vector{Float64}},real_sols),1)
+  else
     return convert(Array{Vector{Float64}},real_sols)
-end
+  end
 end
