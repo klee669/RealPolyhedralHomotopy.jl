@@ -1,5 +1,6 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+RealPolyhedralHomotopy = "0ea325ba-5c5f-496b-acec-8be67510f465"
 
 [compat]
 Documenter = "0.27"

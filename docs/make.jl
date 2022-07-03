@@ -2,12 +2,13 @@ using Documenter
 using RealPolyhedralHomotopy
 
 push!(LOAD_PATH,"../src/")
-makedocs(sitename="RealPolyhedralHomotopy.jl Documentation",
+makedocs(
+         sitename="RealPolyhedralHomotopy.jl Documentation",
          pages = [
             "Index" => "index.md",
             "An other page" => "anotherPage.md",
          ],
-         format = Documenter.HTML()
+         format = Documenter.HTML(prettyurls = false)
 )
 # Documenter can also automatically deploy documentation to gh-pages.
 # See "Hosting Documentation" and deploydocs() in the Documenter manual
