@@ -11,6 +11,6 @@ makedocs(
 # See "Hosting Documentation" and deploydocs() in the Documenter manual
 # for more information.
 deploydocs(
-    repo = "https://github.com/klee669/RealPolyhedralHomotopy.jl.git",
+    repo = "github.com/klee669/RealPolyhedralHomotopy.jl.git",
     devbranch = "main"
 )
