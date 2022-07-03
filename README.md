@@ -1,6 +1,9 @@
 # RealPolyhedralHomotopy.jl
 A package for finding real roots of systems of polynomial equations using polyhedral homotopy.
 
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://klee669.github.io/RealPolyhedralHomotopy.jl/stable)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://klee669.github.io/RealPolyhedralHomotopy.jl/dev)
+
 ## Usage
 To run RealPolyhedralHomotopy.jl, it is suggested to use Julia 1.6.1 or higher.
 - Clone this repository.
