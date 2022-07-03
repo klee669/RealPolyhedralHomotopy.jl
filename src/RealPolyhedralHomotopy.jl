@@ -4,10 +4,12 @@ module RealPolyhedralHomotopy
   using HomotopyContinuation
   using AbstractAlgebra
   using PolynomialRoots
+  using MixedSubdivisions
+  using LinearAlgebra
 
   # exported
   using Reexport
-  @reexport using HomotopyContinuation, AbstractAlgebra, PolynomialRoots
+  @reexport using MixedSubdivisions, HomotopyContinuation, AbstractAlgebra, PolynomialRoots, LinearAlgebra
 
   include("certify_patchwork.jl")
   include("generate_binomials.jl")
