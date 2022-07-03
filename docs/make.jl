@@ -1,17 +1,18 @@
-push!(LOAD_PATH,"../src/")
-
 using Documenter
 using RealPolyhedralHomotopy
 
-makedocs(
-    sitename = "RealPolyhedralHomotopy",
-    format = Documenter.HTML(prettyurls = true),
-    modules = [RealPolyhedralHomotopy]
+push!(LOAD_PATH,"../src/")
+makedocs(sitename="RealPolyhedralHomotopy.jl Documentation",
+         pages = [
+            "Index" => "index.md",
+            "An other page" => "anotherPage.md",
+         ],
+         format = Documenter.HTML()
 )
-
 # Documenter can also automatically deploy documentation to gh-pages.
 # See "Hosting Documentation" and deploydocs() in the Documenter manual
 # for more information.
 deploydocs(
-    repo = "github.com/klee669/RealPolyhedralHomotopy.jl.git"
+    repo = "github.com/klee669/RealPolyhedralHomotopy.jl.git",
+    devbranch = "main"
 )
