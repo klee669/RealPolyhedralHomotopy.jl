@@ -1,11 +1,9 @@
-push!(LOAD_PATH,"../src/")
-
 using Documenter
 using RealPolyhedralHomotopy
 
 makedocs(
     sitename = "RealPolyhedralHomotopy",
-    format = Documenter.HTML(prettyurls = true),
+    format = Documenter.HTML(),
     modules = [RealPolyhedralHomotopy]
 )
 
@@ -13,5 +11,6 @@ makedocs(
 # See "Hosting Documentation" and deploydocs() in the Documenter manual
 # for more information.
 deploydocs(
-    repo = "github.com/klee669/RealPolyhedralHomotopy.jl.git"
+    repo = "https://github.com/klee669/RealPolyhedralHomotopy.jl.git",
+    devbranch = "main"
 )
