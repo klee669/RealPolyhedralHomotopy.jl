@@ -1,9 +1,19 @@
 export generate_binomials
 
 """
-    generate_binomials(poly_system::System)
+    generate_binomials(F::System)
 
 Return a collection of binomial systems from an input polynomial system. Binomial systems obtained from the mixed cells induced by the ``Log|C|``-lifting.
+# Arguments
+* `F` : The target system for the real polyhedral homotopy. 
+```julia
+B = generate_binomials(F)
+```
+```
+2-element Vector{Any}:
+ Expression[-24000*y + x^3, 50*x*y - y^2]
+ Expression[-24000*y + x^3, -9 + 50*x*y]
+```
 """
 function generate_binomials(poly_system)
 
