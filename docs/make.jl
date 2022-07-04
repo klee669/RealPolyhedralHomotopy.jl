@@ -2,11 +2,11 @@ using Documenter
 using RealPolyhedralHomotopy
 
 push!(LOAD_PATH,"../src/")
+
 makedocs(
          sitename="RealPolyhedralHomotopy.jl Documentation",
          pages = [
             "Index" => "index.md",
-            "An other page" => "anotherPage.md",
          ],
          format = Documenter.HTML(prettyurls = false)
 )

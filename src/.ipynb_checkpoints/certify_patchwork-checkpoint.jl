@@ -1,5 +1,12 @@
 export certify_patchwork
 
+@doc """
+    certify_patchwork(polySystem::System; Number_Real_Solutions = false)
+
+Certify if a given system is patchworked that all real solutions can be found using the real polyhedral homotopy.
+It returns the value `1` if the system `F` is certified to be patchworked according to the certification inequality. 
+Otherwise, `0` is returned. 
+"""
 function certify_patchwork(polySystem;Number_Real_Solutions::Bool = false)
   F = polySystem
   neqs = length(F)
