@@ -15,5 +15,4 @@ makedocs(
 # for more information.
 deploydocs(
     repo = "github.com/klee669/RealPolyhedralHomotopy.jl.git",
-    devbranch = "main"
 )
