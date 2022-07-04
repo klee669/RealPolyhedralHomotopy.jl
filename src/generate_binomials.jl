@@ -1,6 +1,10 @@
 export generate_binomials
 
+"""
+    generate_binomials(poly_system::System)
 
+Return a collection of binomial systems from an input polynomial system. Binomial systems obtained from the mixed cells induced by the ``\Log|C|``-lifting.
+"""
 function generate_binomials(poly_system)
 
   F = poly_system;

@@ -1,5 +1,15 @@
 export rph_track
 
+
+"""
+    rph_track(binomialSystem, targetSystem::System; Certification = false)
+
+Return the output of tracking the real solutions of a given list of binomial systems to the target system.
+
+* The optional argument `Certification` certifies that all real solutions to a patchedworked system are found.  
+This is done by an a posteriori certification for numerical approximations obtained by the real polyhedral homotopy. 
+When the real polyhedral homotopy root-finding is certified, it returns a list of solutions to the target and `1`; otherwise, it returns `0`. The default value for the option is false.
+"""
 function rph_track(binomialSystem, targetSystem;Certification::Bool = false)
   F = targetSystem;
   neqs = length(F);
