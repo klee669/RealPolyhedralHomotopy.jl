@@ -15,9 +15,8 @@ B = generate_binomials(F)
  Expression[-24000*y + x^3, -9 + 50*x*y]
 ```
 """
-function generate_binomials(poly_system)
+function generate_binomials(F::System)
 
-  F = poly_system;
   neqs = length(F);
   varsF = variables(F);
 
@@ -26,12 +25,12 @@ function generate_binomials(poly_system)
   B = support_coefficients(F)[2];
 
   # Use Log(|C|) to define lift
-  w1 = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][1])));
+  w1 = round.(-1*(10^6)*log.(abs.(B[1])));
   w1 = convert.(Int,w1);
   lifts = [w1];
 
   for i in 2:neqs
-    w = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][i])))
+    w = round.(-1*(10^6)*log.(abs.(B[i])))
     w = convert.(Int,w)
     append!(lifts, [w])
   end

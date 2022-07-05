@@ -30,8 +30,7 @@ Output:
 ([[-1095.4451129504978, -54772.25548320812], [1095.4451137838312, 54772.255524874796], [8.111114476617955, 0.02219298606763958], [-8.103507635567631, -0.022213821121964985]], 1)
 ```
 """
-function rph_track(binomialSystem, targetSystem;Certification::Bool = false)
-  F = targetSystem;
+function rph_track(binomialSystem::Vector{Any}, F::System;Certification::Bool = false)
   neqs = length(F);
   n = neqs;
   varsF = variables(F);

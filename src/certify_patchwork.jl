@@ -25,8 +25,7 @@ result = certify_patchwork(F; Number_Real_Solutions)
 (1,4)
 ```
 """
-function certify_patchwork(polySystem;Number_Real_Solutions::Bool = false)
-  F = polySystem
+function certify_patchwork(F::System;Number_Real_Solutions::Bool = false)
   neqs = length(F)
   n =neqs
   varsF = variables(F);
@@ -43,11 +42,11 @@ function certify_patchwork(polySystem;Number_Real_Solutions::Bool = false)
 
 
   # Use Log(|C|) to define lift
-  l1 = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][1])));
+  l1 = round.(-1*(10^6)*log.(abs.(B[1])));
   l1 = convert.(Int,l1);
   lifts = [l1];
   for i in 2:neqs
-    l = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][i])))
+    l = round.(-1*(10^6)*log.(abs.(B[i])))
     l = convert.(Int,l)
     append!(lifts, [l])
   end
@@ -123,12 +122,12 @@ function certify_patchwork(polySystem;Number_Real_Solutions::Bool = false)
 ##### Constructing binomial systems begins #####    
 
   # Use Log(|C|) to define lift
-  w1 = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][1])));
+  w1 = round.(-1*(10^6)*log.(abs.(B[1])));
   w1 = convert.(Int,w1);
   lifts = [w1];
 
   for i in 2:neqs
-    w = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][i])))
+    w = round.(-1*(10^6)*log.(abs.(B[i])))
     w = convert.(Int,w)
     append!(lifts, [w])
   end
