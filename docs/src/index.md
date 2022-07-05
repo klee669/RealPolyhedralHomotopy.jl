@@ -4,6 +4,11 @@
 is a package for finding real roots of systems of polynomial equations using polyhedral homotopy.
 The package implements the algorithm for the real polyhedral homotopy establised in [A Polyhedral Homotopy Algorithm For Real Zeros](https://arxiv.org/abs/1910.01957). The idea for the real polyhedral homotopy motivated from the celebrated article [A Polyhedral Method for Solving Sparse Polynomial Systems](https://www.jstor.org/stable/2153370?seq=1) to apply the polyhedral homotopy method for real roots finding.
 
+The authors of this package are
+* [Kisun Lee](https://klee669.github.io)
+* [Julia Lindberg](https://sites.google.com/view/julialindberg)
+* [Jose Israel Rodriguez](https://sites.google.com/wisc.edu/jose)
+
 ## Installation
 
 The package can be installed via the Julia package manager
