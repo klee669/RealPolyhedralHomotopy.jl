@@ -17,6 +17,10 @@ The package can be installed via the Julia package manager
 pkg> add RealPolyhedralHomotopy
 ```
 
+## Getting Started
+
+To find a preliminary example of how the functions in this package work see [this tutorial](https://github.com/klee669/RealPolyhedralHomotopy.jl/blob/main/docs/src/index.md), otherwise see the [documentation](https://klee669.github.io/RealPolyhedralHomotopy.jl/dev/#Installation) for more details.
+
 ## Build status
 [![Build status (Github Actions)](https://github.com/sylvaticus/MyAwesomePackage.jl/workflows/CI/badge.svg)](https://github.com/sylvaticus/MyAwesomePackage.jl/actions)
 [![codecov.io](http://codecov.io/github/sylvaticus/MyAwesomePackage.jl/coverage.svg?branch=main)](http://codecov.io/github/sylvaticus/MyAwesomePackage.jl?branch=main)
