@@ -11,7 +11,6 @@ Return the output of tracking the real solutions of a given list of binomial sys
 ```julia
 realSols = rph_track(B,F)
 ```
-Output:
 ```
 4-element Vector{Vector{Float64}}:
  [-1095.4451129504978, -54772.25548320812]
@@ -25,7 +24,6 @@ When the real polyhedral homotopy root-finding is certified, it returns a list o
 ```julia
 realSols = rph_track(B,F; Certification = true)
 ```
-Output:
 ```
 ([[-1095.4451129504978, -54772.25548320812], [1095.4451137838312, 54772.255524874796], [8.111114476617955, 0.02219298606763958], [-8.103507635567631, -0.022213821121964985]], 1)
 ```
