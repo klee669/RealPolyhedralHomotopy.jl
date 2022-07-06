@@ -23,7 +23,7 @@ Output:
 This is done by an a posteriori certification for numerical approximations obtained by the real polyhedral homotopy. 
 When the real polyhedral homotopy root-finding is certified, it returns a list of solutions to the target and `1`; otherwise, it returns `0`. The default value for the option is false.
 ```julia
-realSols = rph_track(B,F; Certification=true)
+realSols = rph_track(B,F; Certification = true)
 ```
 Output:
 ```
