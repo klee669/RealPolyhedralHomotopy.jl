@@ -21,6 +21,3 @@ pkg> add RealPolyhedralHomotopy
 
 To find a preliminary example of how the functions in this package work see [this tutorial](https://github.com/klee669/RealPolyhedralHomotopy.jl/blob/main/docs/src/index.md), otherwise see the [documentation](https://klee669.github.io/RealPolyhedralHomotopy.jl/dev/#Installation) for more details.
 
-## Build status
-[![Build status (Github Actions)](https://github.com/klee669/RealPolyhedralHomotopy.jl/workflows/CI/badge.svg)](https://github.com/klee669/RealPolyhedralHomotopy.jl/actions)
-[![codecov.io](http://codecov.io/github/klee669/RealPolyhedralHomotopy.jl/coverage.svg?branch=main)](http://codecov.io/github/klee669/RealPolyhedralHomotopy.jl?branch=main)
