@@ -20,6 +20,8 @@ pkg> add RealPolyhedralHomotopy
 
 We support system input through the [HomotopyContinuation](https://www.juliahomotopycontinuation.org) package.
 ```julia
+using RealPolyhedralHomotopy
+
 @var x y;
 F = System([-1 - 24000*y + x^3, -9 + 50*x*y - 1*y^2]);
 ```
