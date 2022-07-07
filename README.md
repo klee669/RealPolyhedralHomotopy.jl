@@ -12,7 +12,7 @@ The package implements the algorithm for the real polyhedral homotopy establised
 
 ## Installation
 
-The package can be installed via the Julia package manager
+The package can be installed via the Julia package manager. It is suggested to use Julia 1.6.1 or higher.
 ```julia
 pkg> add RealPolyhedralHomotopy
 ```
