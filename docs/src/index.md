@@ -11,7 +11,7 @@ The authors of this package are
 
 ## Installation
 
-The package can be installed via the Julia package manager. it is suggested to use Julia 1.6.1 or higher.
+The package can be installed via the Julia package manager. It is suggested to use Julia 1.6.1 or higher.
 ```julia
 pkg> add RealPolyhedralHomotopy
 ```
