@@ -18,7 +18,7 @@ result = certify_patchwork(F)
 1
 ```
 * There is an option `Number_Real_Solutions` returning `(1,k)` where `k` is number of real solutions to the target system when the target system is patchedworked. The default value for the option is false.
-```
+```julia
 result = certify_patchwork(F; Number_Real_Solutions = true)
 ```
 ```
