@@ -55,7 +55,6 @@ jobs:
             Pkg.instantiate()'
       - run: |
           julia --project=docs -e '
-            import Pkg; Pkg.add("RealPolyheralHomotopy")
             import Pkg; Pkg.add("Documenter")
             using Documenter: doctest
             using RealPolyheralHomotopy
