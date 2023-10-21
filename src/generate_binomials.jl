@@ -1,13 +1,21 @@
-export generate_binomials
+export generate_binomials, Binomial_system_data
 
 """
     generate_binomials(F::System)
 
-Return a collection of binomial systems from an input polynomial system. Binomial systems obtained from the mixed cells induced by the ``Log|C|``-lifting.
+Return a wrapper object Binomial_system_data from an input polynomial system. Binomial systems obtained from the mixed cells induced by the ``Log|C|``-lifting.
+The object Binomial_system_data contains the binomial system, normal vectors, lifting vectors, and cells from the mixed subdivision computed.
+The object Binomial_system_data is used as an input for the rph_track function.
 # Arguments
 * `F` : The target system for the real polyhedral homotopy. 
 ```julia
 B = generate_binomials(F)
+```
+```
+Binomial_system_data
+```
+```julia
+B.binomial_system
 ```
 ```
 2-element Vector{Any}:
@@ -15,22 +23,35 @@ B = generate_binomials(F)
  Expression[-24000*y + x^3, -9 + 50*x*y]
 ```
 """
-function generate_binomials(F::System)
 
+struct Binomial_system_data
+  binomial_system::Vector{Any}
+  normal_vectors::Vector{Any}
+  lifts::Vector{Vector{Int64}}
+  cells::Vector{MixedCell}
+end
+
+function Base.show(io::IO,x::Binomial_system_data)
+  print(io,"Binomial_system_data")
+end
+
+
+function generate_binomials(F::system)
+
+  x = variables(F);
   neqs = length(F);
-  varsF = variables(F);
 
   # Define matrices that are the monomial support and coefficients of F
   A = support_coefficients(F)[1];
   B = support_coefficients(F)[2];
 
   # Use Log(|C|) to define lift
-  w1 = round.(-1*(10^6)*log.(abs.(B[1])));
+  w1 = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][1])));
   w1 = convert.(Int,w1);
   lifts = [w1];
 
   for i in 2:neqs
-    w = round.(-1*(10^6)*log.(abs.(B[i])))
+    w = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][i])))
     w = convert.(Int,w)
     append!(lifts, [w])
   end
@@ -42,6 +63,7 @@ function generate_binomials(F::System)
 
   # Define binomial systems from mixed cells
   binomial_systems = [];
+  normal_vectors = [];
   for i in 1:ncells
     system = [];
     mons = indices(cells[i])
@@ -49,12 +71,13 @@ function generate_binomials(F::System)
       mons2 = mons[j]
       bi1 = transpose(A[j])[mons2[1]:mons2[1],1:end]
       bi2 = transpose(A[j])[mons2[2]:mons2[2],1:end]
-      term1 = B[j][mons2[1]]*prod(varsF.^(transpose(bi1)))
-      term2 = B[j][mons2[2]]*prod(varsF.^(transpose(bi2)))
+      term1 = B[j][mons2[1]]*prod(x.^(transpose(bi1)))
+      term2 = B[j][mons2[2]]*prod(x.^(transpose(bi2)))
       p = term1 + term2;
       append!(system,p)
     end
     append!(binomial_systems, [system])
+    append!(normal_vectors, [normal(cells[i])])
   end
 
   # Convert binomial systems from type Any to type Expression
@@ -62,6 +85,7 @@ function generate_binomials(F::System)
     binomial_systems[i] = convert(Array{Expression,1}, binomial_systems[i])
   end
 
-  return binomial_systems
+  return Binomial_system_data(binomial_systems, normal_vectors, lifts, cells)
 
 end
+

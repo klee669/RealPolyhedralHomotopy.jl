@@ -2,11 +2,11 @@ export rph_track
 
 
 """
-    rph_track(B::Vector{Any}, F::System; Certification = false)
+    rph_track(B::Binomial_system_data, F::System; Certification = false)
 
 Return the output of tracking the real solutions of a given list of binomial systems to the target system.
 # Arguments
-* `B` : The list of binomial systems obtained from `generate_binomials(F)`.
+* `B` : The object Binomial_system_data obtained from `generate_binomials(F)`.
 * `F` : The target system for the real polyhedral homotopy. 
 ```julia
 realSols = rph_track(B,F)
@@ -28,13 +28,15 @@ realSols = rph_track(B,F; Certification = true)
 ([[-1095.4451129504978, -54772.25548320812], [1095.4451137838312, 54772.255524874796], [8.111114476617955, 0.02219298606763958], [-8.103507635567631, -0.022213821121964985]], 1)
 ```
 """
-function rph_track(binomialSystem::Vector{Any}, F::System;Certification::Bool = false)
+function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = false)
+
   neqs = length(F);
   n = neqs;
   varsF = variables(F);
   F_eqs = expressions(F);
 
-  binomial_systems = binomialSystem;
+  binomial_systems = BData.binomial_system;
+  normal_vectors = BData.normal_vectors;
 
   ncells = length(binomial_systems);
 
@@ -105,47 +107,84 @@ function rph_track(binomialSystem::Vector{Any}, F::System;Certification::Bool = 
 
 
 
-  # G is an array of the polynomial systems that are the set of monomials not in each binomial system
-  G = [];
-  for i in 1:ncells
-    append!(G, [F_eqs - binomial_systems[i]])
-  end
+### Define homotopies
 
   # Define our homotopy variable
   @var t
 
-  # Create systems consisting of monomials not in binomial system multiplied by (1-t)^a for a positive integer a
+
+  # Define matrices that are the monomial support and coefficients of F
+  A = support_coefficients(F)[1];
+  B = support_coefficients(F)[2];
+
+  # Compute lift vector
+  # Use Log(|C|) to define lift
+#  w1 = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][1])));
+#  w1 = convert.(Int,w1);
+  l = BData.lifts;
+#  for i in 2:neqs
+#    w = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][i])))
+    #w = convert.(Int,w)
+#    append!(lifts, [w])
+#  end
+
+
+
+
+
+  #Create homotopy for each mixed cell
+
   homotopies = [];
-  for k in 1:ncells
-  J = System(G[k])
-  G_sup1 = support_coefficients(J)[1];
-  G_sup2 = support_coefficients(J)[2];
-    h1 = [];
-    for i in 1:neqs
-      t1, t2 = size(transpose(G_sup1[i]))
-      monomial_list = [];
-        for j in 1:t1
-          a = abs.(rand(Int8))%10 + 1
-          mon_vec = transpose(G_sup1[i])[j:j,1:end]
-          mon1 = G_sup2[i][j]*prod(varsF.^(transpose(mon_vec)))
-          append!(monomial_list, mon1*((1-t)^a))
-        end
-      append!(h1, [sum(monomial_list)])
-      end
-      append!(homotopies, [h1])
+  c = BData.cells;
+  for k in 1:length(c)
+    rn = normal_vectors[k]
+
+    #Find exponents for homotopy variable t
+    tvecs = [];
+    A = support_coefficients(F)[1];
+    B = support_coefficients(F)[2];
+    Anew = A;
+    for i in 1:n
+      tlist = transpose(A[i])*rn + l[i]
+      m = minimum(tlist)
+      tlist = tlist - m*ones(length(tlist))
+      tlist = round.(tlist);
+      tlist = convert.(Int, tlist)
+      append!(tvecs, [tlist])
+      Anew[i] = [A[i] ; tlist']
+    end
+
+    varsFt = collect(Iterators.flatten([varsF, t]))
+    eqs = [];
+    for i in 1:n
+      varmat = varsFt.^Anew[i]
+      eq = sum(B[i][j]*prod(varmat[1:end, j:j]) for j in 1:size(varmat)[2])
+      append!(eqs, [eq])
+    end
+
+    #send t->1-t since Homotopy goes from 1 to 0
+    for i in 1:length(eqs)
+      eqs[i] = subs(eqs[i], t=>(1-t))
+    end
+
+
+    append!(homotopies, [eqs])
+
   end
+
 
   # Change homotopies from type Any to type Expression
   for i in 1:length(homotopies)
     homotopies[i] = convert(Array{Expression,1}, homotopies[i])
   end
 
-  # Create our homotopy systems by adding each binomial system to other systems that have monomials with (1-t)^a attached
+  # Create our homotopy systems
+
   homotopy_systems = [];
   for i in 1:ncells
-    combined_sys = homotopies[i] + binomial_systems[i]
-    append!(homotopy_systems,  [Homotopy(combined_sys, varsF, t)])
+    append!(homotopy_systems,  [Homotopy(homotopies[i], varsF, t)])
   end
+
 
 
 
@@ -159,7 +198,7 @@ function rph_track(binomialSystem::Vector{Any}, F::System;Certification::Bool = 
     append!(real_sols, real_solutions(R2))
   end
 
-  if Certification == true         
+  if Certification == true
     for i in 1:ncells
       cr = certify(binomial_systems[i],convert(Array{Vector{Float64}},r_binomial_sols[i]));
       if nreal_certified(cr) < length(r_binomial_sols[i])
