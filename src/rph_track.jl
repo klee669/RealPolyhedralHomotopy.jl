@@ -37,6 +37,7 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
 
   binomial_systems = BData.binomial_system;
   normal_vectors = BData.normal_vectors;
+  l = BData.lifts;
 
   ncells = length(binomial_systems);
 
@@ -117,16 +118,6 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
   A = support_coefficients(F)[1];
   B = support_coefficients(F)[2];
 
-  # Compute lift vector
-  # Use Log(|C|) to define lift
-#  w1 = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][1])));
-#  w1 = convert.(Int,w1);
-  l = BData.lifts;
-#  for i in 2:neqs
-#    w = round.(-1*(10^6)*log.(abs.(support_coefficients(F)[2][i])))
-    #w = convert.(Int,w)
-#    append!(lifts, [w])
-#  end
 
 
 
