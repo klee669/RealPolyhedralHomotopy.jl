@@ -36,7 +36,7 @@ function Base.show(io::IO,x::Binomial_system_data)
 end
 
 
-function generate_binomials(F::system)
+function generate_binomials(F::System)
 
   x = variables(F);
   neqs = length(F);
