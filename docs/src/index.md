@@ -29,7 +29,12 @@ F = System([-1 - 24000*y + x^3, -9 + 50*x*y - 1*y^2]);
 For finding real roots, the list of binomial systems corresponding to `F` is required as a start system.
 ```julia
 B = generate_binomials(F);
-
+```
+```
+Binomial_system_data
+```
+```julia
+B.binomial_system
 ```
 ```
 2-element Vector{Any}:
