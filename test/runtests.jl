@@ -11,7 +11,7 @@ result = certify_patchwork(F; Number_Real_Solutions = true);
 @test result[2] == 4
 
 B = generate_binomials(F);
-@test length(B) == 2
+@test length(B.binomial_system) == 2
 
 realSols = rph_track(B,F)
 @test length(realSols) == 4
