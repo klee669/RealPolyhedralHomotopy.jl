@@ -57,6 +57,7 @@ realSols = rph_track(B,F)
 
 ```@docs
 certify_patchwork
+Binomial_system_data
 generate_binomials
 rph_track
 ```
