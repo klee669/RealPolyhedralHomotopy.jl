@@ -57,6 +57,6 @@ realSols = rph_track(B,F)
 
 ```@docs
 certify_patchwork
-generate_binomials(::System)
+generate_binomials
 rph_track
 ```
