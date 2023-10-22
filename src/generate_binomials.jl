@@ -1,5 +1,20 @@
 export generate_binomials, Binomial_system_data
 
+
+struct Binomial_system_data
+  binomial_system::Vector{Any}
+  normal_vectors::Vector{Any}
+  lifts::Vector{Vector{Int64}}
+  cells::Vector{MixedCell}
+end
+
+function Base.show(io::IO,x::Binomial_system_data)
+  print(io,"Binomial_system_data")
+end
+
+
+
+
 """
     generate_binomials(F::System)
 
@@ -23,19 +38,6 @@ B.binomial_system
  Expression[-24000*y + x^3, -9 + 50*x*y]
 ```
 """
-
-struct Binomial_system_data
-  binomial_system::Vector{Any}
-  normal_vectors::Vector{Any}
-  lifts::Vector{Vector{Int64}}
-  cells::Vector{MixedCell}
-end
-
-function Base.show(io::IO,x::Binomial_system_data)
-  print(io,"Binomial_system_data")
-end
-
-
 function generate_binomials(F::System)
 
   x = variables(F);
