@@ -1,6 +1,10 @@
 export generate_binomials, Binomial_system_data
 
+"""
+    Binomial_system_data
 
+An object contains 4 vectors consist of binomial systems and its normal vectors, liftings, and mixed cells.
+"""
 struct Binomial_system_data
   binomial_system::Vector{Any}
   normal_vectors::Vector{Any}
