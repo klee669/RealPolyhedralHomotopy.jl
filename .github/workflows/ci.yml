@@ -59,7 +59,7 @@ jobs:
             import Pkg; Pkg.add("Documenter")
             using Documenter: doctest
             using RealPolyhedralHomotopy
-            doctest(RealPolyhedralHomotopy)'
+            doctest(RealPolyhedralHomotopy)' 
       - run: julia --project=docs docs/make.jl
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
