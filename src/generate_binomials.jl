@@ -11,7 +11,6 @@ struct Binomial_system_data
   lifts::Vector{Vector{Int64}}
   cells::Vector{MixedCell}
 end
-
 function Base.show(io::IO,x::Binomial_system_data)
   print(io,"Binomial_system_data")
 end
@@ -25,6 +24,7 @@ end
 Return a wrapper object Binomial_system_data from an input polynomial system. Binomial systems obtained from the mixed cells induced by the ``Log|C|``-lifting.
 The object Binomial_system_data contains the binomial system, normal vectors, lifting vectors, and cells from the mixed subdivision computed.
 The object Binomial_system_data is used as an input for the rph_track function.
+
 # Arguments
 * `F` : The target system for the real polyhedral homotopy. 
 ```julia
