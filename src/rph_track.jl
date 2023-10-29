@@ -29,7 +29,7 @@ realSols = rph_track(B,F; Certification = true)
 ```
 """
 function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = false)
-
+#define parameters used throughout function
   neqs = length(F);
   n = neqs;
   varsF = variables(F);
@@ -44,7 +44,7 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
   # Find real solutions to binomial systems
   r_binomial_sols = [];
 
-
+    #For each cell we use the Smith Normal form method from linear algebra to find all real solutions.
   for i in 1:ncells
     T = System(binomial_systems[i])
     D = zero_matrix(ZZ, n, n)
@@ -58,7 +58,7 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
           end
         B[j] = -1*T_coeffs[j][2]/T_coeffs[j][1]
       end
-    D = transpose(D)
+    D = transpose(D) #D is the matrix such that our binomial system can be written as x^D = 0
     H,U = hnf_with_transform(D)
     B_new = zeros(n);
     for i in 1:n
@@ -76,13 +76,13 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
     poly_root[1] = -1*B_new[end]
     R = PolynomialRoots.roots(poly_root)
 
-    real_R = findall(x->norm(x)<10^(-10), imag.(R));
+    real_R = findall(x->norm(x)<10^(-10), imag.(R)); #We consider a solution real if the norm of its imaginary part is below a threshold
     test = [];
     for i in 1:length(real_R)
       append!(test, [[real(R[real_R[i]])]])
     end
     sols[n] = test
-
+    #Here we iterate through each coordinate of our solution vector to recursively find all real solutions from a given binomial system
     for k in 1:n-1
       poly_root = im*zeros(H[n-k,n-k]+1)
       test =[];
@@ -130,7 +130,7 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
   for k in 1:length(c)
     rn = normal_vectors[k]
 
-    #Find exponents for homotopy variable t
+    #Find exponents for homotopy variable t as outlined in paper
     tvecs = [];
     A = support_coefficients(F)[1];
     B = support_coefficients(F)[2];
@@ -147,6 +147,7 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
 
     varsFt = collect(Iterators.flatten([varsF, t]))
     eqs = [];
+        #Define lifted polynomial system F(x,t)
     for i in 1:n
       varmat = varsFt.^Anew[i]
       eq = sum(B[i][j]*prod(varmat[1:end, j:j]) for j in 1:size(varmat)[2])
@@ -188,14 +189,16 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
     R2 = HomotopyContinuation.solve(H1, r_binomial_sols[i],show_progress=false)
     append!(real_sols, real_solutions(R2))
   end
-
+    #Gives certification option
   if Certification == true
+        #Certify solutions to binomial systems
     for i in 1:ncells
       cr = certify(binomial_systems[i],convert(Array{Vector{Float64}},r_binomial_sols[i]));
       if nreal_certified(cr) < length(r_binomial_sols[i])
         return 0
       end
     end
+        #Certify solutions to target system
     for i in 1:length(real_sols)
       cr = certify(F,real_sols[i]);
       if nreal_certified(cr) < 1
