@@ -43,6 +43,9 @@ B.binomial_system
 ```
 Using the function `rph_track`, real roots are found by tracking the real polyhedral homotopy.
 ```julia
+@var x y;
+F = System([-1 - 24000*y + x^3, -9 + 50*x*y - 1*y^2]);
+B = generate_binomials(F);
 realSols = rph_track(B,F)
 ```
 ```
