@@ -1,7 +1,7 @@
 name = "RealPolyhedralHomotopy"
 uuid = "0ea325ba-5c5f-496b-acec-8be67510f465"
 authors = ["Kisun Lee <kisunl@clemson.edu>","Julia Lindberg <julia.lindberg@math.utexas.edu>","Jose Israel Rodriguez <jose@math.wisc.edu>"]
-version = "1.1.1"
+version = "1.2.0"
 
 [deps]
 AbstractAlgebra = "c3fe647b-3220-5bb0-a1ea-a7954cac585d"
