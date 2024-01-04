@@ -86,19 +86,14 @@ function certify_patchwork(F::System;Number_Real_Solutions::Bool = false)
       append!(in_cols, col2)
     end
 
-    out_cols = [];
-    for j in 1:size(M)[2]
-      t = findall(x->x==j, in_cols)
-      if length(t) == 0
-        append!(out_cols, j)
-      end
-    end
+    out_cols = [ j for j in 1:size(M)[2] if j ∉ in_cols ]
+ 
 
     fails = [];
     for j in 1:length(out_cols)
       cols = vcat(in_cols, out_cols[j]);
       sort!(cols);
-      M_cells = M[1:end, cols];
+      M_cells = M[:, cols];
       null = nullspace(M_cells);
       vBmod = vB[cols];
       lhs = abs.(dot(null, log.(abs.(vBmod))))
@@ -144,8 +139,8 @@ function certify_patchwork(F::System;Number_Real_Solutions::Bool = false)
     mons = indices(cells[i])
     for j in 1:neqs
       mons2 = mons[j]
-      bi1 = transpose(A[j])[mons2[1]:mons2[1],1:end]
-      bi2 = transpose(A[j])[mons2[2]:mons2[2],1:end]
+      bi1 = transpose(A[j])[mons2[1]:mons2[1],:]
+      bi2 = transpose(A[j])[mons2[2]:mons2[2],:]
       term1 = B[j][mons2[1]]*prod(varsF.^(transpose(bi1)))
       term2 = B[j][mons2[2]]*prod(varsF.^(transpose(bi2)))
       p = term1 + term2;
@@ -173,20 +168,20 @@ function certify_patchwork(F::System;Number_Real_Solutions::Bool = false)
     Bz = zeros(n)
     T_mons = support_coefficients(T)[1]
     T_coeffs = support_coefficients(T)[2]
-      for j in 1:n
-        v = T_mons[j][1:end,1:1] - T_mons[j][1:end,2:2]
-          for k in 1:length(v)
-            D[k,j] = v[k]
-          end
-        Bz[j] = -1*T_coeffs[j][2]/T_coeffs[j][1]
-      end
+    for j in 1:n
+      v = T_mons[j][:,1] - T_mons[j][:,2]
+        for k in 1:length(v)
+          D[k,j] = v[k]
+        end
+      Bz[j] = -1*T_coeffs[j][2]/T_coeffs[j][1]
+    end
     D = transpose(D)
     H,U = hnf_with_transform(D)
     Bz_new = zeros(n);
-    for i in 1:n
-      v = Array(U[i:i, 1:end])
+    for j in 1:n
+      v = Array(U[j, :])
       v1 = transpose(Bz).^v
-      Bz_new[i] = prod(v1)
+      Bz_new[j] = prod(v1)
     end
 
     #Create dictionary to store real solutions
@@ -200,8 +195,8 @@ function certify_patchwork(F::System;Number_Real_Solutions::Bool = false)
 
     real_R = findall(x->norm(x)<10^(-10), imag.(R));
     test = [];
-    for i in 1:length(real_R)
-      append!(test, [[real(R[real_R[i]])]])
+    for j in 1:length(real_R)
+      append!(test, [[real(R[real_R[j]])]])
     end
     sols[n] = test
 
@@ -230,19 +225,19 @@ function certify_patchwork(F::System;Number_Real_Solutions::Bool = false)
 ##### Finding solutions for binomial systems ends #####    
         
         
-if Number_Real_Solutions == true         
-  if length(failed_cells)>0
-    return 0
+  if Number_Real_Solutions == true         
+    if length(failed_cells)>0
+      return 0
+    else
+      return (1, length(collect(Iterators.flatten(r_binomial_sols))));
+    end
   else
-    return (1, length(collect(Iterators.flatten(r_binomial_sols))));
+    if length(failed_cells)>0
+      return 0
+    else
+      return 1
+    end
   end
-else
-  if length(failed_cells)>0
-    return 0
-  else
-    return 1
-  end
-end
             
 end
 

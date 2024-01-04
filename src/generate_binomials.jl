@@ -75,8 +75,8 @@ function generate_binomials(F::System)
     mons = indices(cells[i])
     for j in 1:neqs
       mons2 = mons[j]
-      bi1 = transpose(A[j])[mons2[1]:mons2[1],1:end]
-      bi2 = transpose(A[j])[mons2[2]:mons2[2],1:end]
+      bi1 = transpose(A[j])[mons2[1]:mons2[1],:]
+      bi2 = transpose(A[j])[mons2[2]:mons2[2],:]
       term1 = B[j][mons2[1]]*prod(x.^(transpose(bi1)))
       term2 = B[j][mons2[2]]*prod(x.^(transpose(bi2)))
       p = term1 + term2;

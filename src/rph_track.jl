@@ -6,9 +6,12 @@ export rph_track
 
 Return the output of tracking the real solutions of a given list of binomial systems to the target system.
 # Arguments
-* `B` : The object Binomial_system_data obtained from `generate_binomials(F)`.
+* `B` : The object `Binomial_system_data` obtained from `generate_binomials(F)`.
 * `F` : The target system for the real polyhedral homotopy. 
 ```julia
+@var x y;
+F = System([-1 - 24000*y + x^3, -9 + 50*x*y - 1*y^2]);
+B = generate_binomials(F);
 realSols = rph_track(B,F)
 ```
 ```
@@ -33,7 +36,6 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
   neqs = length(F);
   n = neqs;
   varsF = variables(F);
-  F_eqs = expressions(F);
 
   binomial_systems = BData.binomial_system;
   normal_vectors = BData.normal_vectors;
@@ -52,7 +54,7 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
     T_mons = support_coefficients(T)[1]
     T_coeffs = support_coefficients(T)[2]
       for j in 1:n
-        v = T_mons[j][1:end,1:1] - T_mons[j][1:end,2:2]
+        v = T_mons[j][:,1] - T_mons[j][:,2]
           for k in 1:length(v)
             D[k,j] = v[k]
           end
@@ -62,7 +64,7 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
     H,U = hnf_with_transform(D)
     B_new = zeros(n);
     for i in 1:n
-      v = Array(U[i:i, 1:end])
+      v = Array(U[i, :])
       v1 = transpose(B).^v
       B_new[i] = prod(v1)
     end
@@ -149,7 +151,7 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
     eqs = [];
     for i in 1:n
       varmat = varsFt.^Anew[i]
-      eq = sum(B[i][j]*prod(varmat[1:end, j:j]) for j in 1:size(varmat)[2])
+      eq = sum(B[i][j]*prod(varmat[:, j]) for j in 1:size(varmat)[2])
       append!(eqs, [eq])
     end
 
