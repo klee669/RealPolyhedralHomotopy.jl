@@ -7,7 +7,7 @@ export rph_track
 Return the output of tracking the real solutions of a given list of binomial systems to the target system.
 # Arguments
 * `B` : The object `Binomial_system_data` obtained from `generate_binomials(F)`.
-* `F` : The target system for the real polyhedral homotopy. 
+* `F` : The target system for the real polyhedral homotopy.
 ```julia
 @var x y;
 F = System([-1 - 24000*y + x^3, -9 + 50*x*y - 1*y^2]);
@@ -21,8 +21,8 @@ realSols = rph_track(B,F)
  [8.111114476617955, 0.02219298606763958]
  [-8.103507635567631, -0.02221382112196499]
 ```
-* The optional argument `Certification` certifies that all real solutions to a patchedworked system are found.  
-This is done by an a posteriori certification for numerical approximations obtained by the real polyhedral homotopy. 
+* The optional argument `Certification` certifies that all real solutions to a patchedworked system are found.
+This is done by an a posteriori certification for numerical approximations obtained by the real polyhedral homotopy.
 When the real polyhedral homotopy root-finding is certified, it returns a list of solutions to the target and `1`; otherwise, it returns `0`. The default value for the option is false.
 ```julia
 realSols = rph_track(B,F; Certification = true)
@@ -63,10 +63,11 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
     D = transpose(D)
     H,U = hnf_with_transform(D)
     B_new = zeros(n);
-    for i in 1:n
-      v = Array(U[i, :])
+
+    for l in 1:n
+      v = Array(U[l, :])
       v1 = transpose(B).^v
-      B_new[i] = prod(v1)
+      B_new[l] = prod(v1)
     end
 
     #Create dictionary to store real solutions
@@ -80,8 +81,9 @@ function rph_track(BData::Binomial_system_data,F::System;Certification::Bool = f
 
     real_R = findall(x->norm(x)<10^(-10), imag.(R));
     test = [];
-    for i in 1:length(real_R)
-      append!(test, [[real(R[real_R[i]])]])
+
+    for l in 1:length(real_R)
+      append!(test, [[real(R[real_R[l]])]])
     end
     sols[n] = test
 
